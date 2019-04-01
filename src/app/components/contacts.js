@@ -1,6 +1,8 @@
 import React from 'react';
 import '../css/contacts.css';
 
+import TodoList from './todoList';
+
 const fruit = ["pear", "apple", "plum", "kiwi"];
 
 export default class Contacts extends React.Component {
@@ -30,8 +32,13 @@ export default class Contacts extends React.Component {
                         this.state.fruitList.map((item, index) => <li key={index}>{item}</li>)
                     }
                 </ul>
+
                 <hr />
                 <h3>Component with children:</h3>
+
+                <hr />
+                <TodoList /> 
+                    
                 <hr />
             </div>
         );
