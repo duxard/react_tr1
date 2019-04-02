@@ -2,6 +2,10 @@ import React from 'react';
 import '../css/contacts.css';
 
 import TodoList from './todoList';
+import ControlledList from './controlledList';
+import UncontrolledList from './uncontrolledList';
+import FilteredList from './filteredList';
+import AxiosUsage from './axiosUsage';
 
 const fruit = ["pear", "apple", "plum", "kiwi"];
 
@@ -40,6 +44,16 @@ export default class Contacts extends React.Component {
                 <TodoList /> 
                     
                 <hr />
+                <ControlledList />
+                    
+                <hr />
+                <UncontrolledList />
+                    
+                <hr />
+                <FilteredList />
+                    
+                <hr />
+                <AxiosUsage />
             </div>
         );
     }
