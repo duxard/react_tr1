@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Contacts from './components/contacts';
+import MainComponent from './components/MainComponent';
 
 class App extends React.Component {
     constructor(...args){
@@ -14,7 +14,7 @@ class App extends React.Component {
         return (
             <div>
                 <h2>test</h2>
-                <Contacts names={this.contactsList} />
+                <MainComponent names={this.contactsList} />
             </div>
         );
     }
