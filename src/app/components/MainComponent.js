@@ -1,7 +1,7 @@
 import React from 'react';
 import '../css/mainComponent.css';
 
-import TodoList from './TodoList';
+import ParentAndChild from './ParentAndChild';
 import ControlledList from './ControlledList';
 import UncontrolledList from './UncontrolledList';
 import FilteredList from './FilteredList';
@@ -29,19 +29,16 @@ export default class MainComponent extends React.Component {
     render(){
         return (
             <div>
-                <h2>Contacts page</h2>
+                <h4>Main page</h4>
                 <p>Owners: {this.props.names[0]} : {this.props.names[1]}</p>
                 <ul id="list">
                     {
                         this.state.fruitList.map((item, index) => <li key={index}>{item}</li>)
                     }
                 </ul>
-
+        
                 <hr />
-                <h3>Component with children:</h3>
-
-                <hr />
-                <TodoList /> 
+                <ParentAndChild /> 
                     
                 <hr />
                 <ControlledList />
