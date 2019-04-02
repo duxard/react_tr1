@@ -6,6 +6,7 @@ import ControlledList from './ControlledList';
 import UncontrolledList from './UncontrolledList';
 import FilteredList from './FilteredList';
 import AxiosUsage from './AxiosUsage';
+import ComponentWithChildren from './ComponentWithChildren';
 
 const fruit = ["pear", "apple", "plum", "kiwi"];
 
@@ -51,6 +52,11 @@ export default class MainComponent extends React.Component {
                     
                 <hr />
                 <AxiosUsage />
+                    
+                <hr />
+                <ComponentWithChildren name={"Joshua"} age={20}>
+                    <p>Nested child components</p>
+                </ComponentWithChildren>
             </div>
         );
     }
