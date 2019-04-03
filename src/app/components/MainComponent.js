@@ -7,6 +7,7 @@ import UncontrolledList from './UncontrolledList';
 import FilteredList from './FilteredList';
 import AxiosUsage from './AxiosUsage';
 import ComponentWithChildren from './ComponentWithChildren';
+import UserList from './UserList';
 
 const fruit = ["pear", "apple", "plum", "kiwi"];
 
@@ -23,7 +24,7 @@ export default class MainComponent extends React.Component {
         this.setState({
             fruitList: fruit
         }, function(){
-            console.log(this.state.fruitList);
+            console.log(`MainComponent.componentDidMount(): ${this.state.fruitList}`);
         });
     }
 
@@ -37,22 +38,25 @@ export default class MainComponent extends React.Component {
                         this.state.fruitList.map((item, index) => <li key={index}>{item}</li>)
                     }
                 </ul>
-        
+
                 <hr />
-                <ParentAndChild /> 
-                    
+                <UserList />
+
+                <hr />
+                <ParentAndChild />
+
                 <hr />
                 <ControlledList />
-                    
+
                 <hr />
                 <UncontrolledList />
-                    
+
                 <hr />
                 <FilteredList />
-                    
+
                 <hr />
                 <AxiosUsage />
-                    
+
                 <hr />
                 <ComponentWithChildren name={"Joshua"} age={20}>
                     <p>Nested child components</p>

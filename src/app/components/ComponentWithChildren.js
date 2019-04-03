@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 export default class ComponentWithChildren extends React.Component {
     constructor(props) {
         super(props);
-        
-        console.log(PropTypes);
     }
     
     render() {
