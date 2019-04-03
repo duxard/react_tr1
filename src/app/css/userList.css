@@ -1,0 +1,14 @@
+#usersList li{
+/*    outline: 1px dashed green;*/
+    width: 300px;
+    height: 30px;
+    line-height: 30px;
+    margin: 10px 0;
+    
+}
+
+li button{
+    float: right;
+    padding: 0;
+    margin: 5px 1px;
+}

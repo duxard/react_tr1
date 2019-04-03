@@ -1,5 +1,7 @@
 import React from 'react';
 
+import '../css/userList.css';
+
 let arrUsersList = ["one"];
 
 export default class UserList extends React.Component {
