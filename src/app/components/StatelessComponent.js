@@ -1,15 +1,15 @@
 import React from 'react';
 
-export default class StatelessComponent extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-    
-    render(){
-        return (
-            <div>
-                <h4>Stateless Component</h4>
-            </div>
-        );
-    }
+const StatelessComponent = ({ user, age, admin }) => {
+    return (
+        <div>
+            <h4>Stateless component </h4>
+            <p>Component props:</p>
+            <p>User: {user}</p>
+            <p>Age: {age}</p>
+            <p>Admin: {admin}</p>
+        </div>
+    );
 }
+
+export default StatelessComponent;

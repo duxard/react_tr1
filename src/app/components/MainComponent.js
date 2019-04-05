@@ -48,7 +48,7 @@ export default class MainComponent extends React.Component {
                 <HerokuList />
                     
                 <hr />
-                <StatelessComponent user={"Woo Bih"} age={25} admin={true} />
+                <StatelessComponent user={"Woo Bih"} age={25} admin={"true"} />
 
                 <hr />
                 <ParentAndChild />
