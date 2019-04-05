@@ -8,6 +8,8 @@ import FilteredList from './FilteredList';
 import AxiosUsage from './AxiosUsage';
 import ComponentWithChildren from './ComponentWithChildren';
 import UserList from './UserList';
+import HerokuList from './HerokuList';
+import StatelessComponent from './StatelessComponent';
 
 const fruit = ["pear", "apple", "plum", "kiwi"];
 
@@ -41,6 +43,12 @@ export default class MainComponent extends React.Component {
 
                 <hr />
                 <UserList />
+                    
+                <hr />
+                <HerokuList />
+                    
+                <hr />
+                <StatelessComponent user={"Woo Bih"} age={25} admin={true} />
 
                 <hr />
                 <ParentAndChild />

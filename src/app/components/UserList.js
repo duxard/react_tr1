@@ -2,7 +2,7 @@ import React from 'react';
 
 import '../css/userList.css';
 
-let arrUsersList = ["one"];
+let arrUsersList = [{id: (new Date).getTime(), name: "One"}];
 
 export default class UserList extends React.Component {
     constructor(props) {
@@ -21,7 +21,10 @@ export default class UserList extends React.Component {
         let textToAdd = this.addText.value.trim();
         
         if (textToAdd) {
-            arrUsersList.push(textToAdd);
+            arrUsersList.push({
+                id: (new Date).getTime(),
+                name: textToAdd
+            });
             this.setState({
                 users: arrUsersList
             });
@@ -33,8 +36,9 @@ export default class UserList extends React.Component {
     }
     
     handleRemove(e) {
-        let elementToRemove = +e.target.parentElement.getAttribute("data-number");
-        arrUsersList.splice(elementToRemove, 1);
+        let dataIdAttr = +e.target.parentElement.getAttribute("data-id"),
+            elementPosition = arrUsersList.map(el => el.id).indexOf(dataIdAttr);
+        arrUsersList.splice(elementPosition, 1);
         this.setState({
             users: arrUsersList
         });
@@ -58,7 +62,7 @@ export default class UserList extends React.Component {
                     {
                         this.state.users.map((user, index) => {
                             return (
-                                <li key={index} data-number={index}>{user}<button onClick={this.handleRemove}>Remove</button></li>
+                                <li key={index} data-id={user.id}>{user.name}<button onClick={this.handleRemove}>Remove</button></li>
                             );
                         })
                     }
