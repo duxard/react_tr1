@@ -11,7 +11,6 @@ export default class ParentAndChild extends React.Component {
     }
     
     toggleDivColor(){
-        console.log("fire");
         this.DOM.targetBox.classList.toggle("blackColor");
     }
     

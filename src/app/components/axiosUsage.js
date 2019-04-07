@@ -19,7 +19,7 @@ export default class AxiosUsage extends React.Component {
         axios.get('https://reqres.in/api/users?page=2', {timeout: 1500}).then((response) => {
             let resultOfRestRequest = response.data;
             this.setState({users: resultOfRestRequest.data}, function(){
-                console.log(`AxiosUsage componentDidMount(): ${this.state.users}`);
+                console.log(`AxiosUsage.componentDidMount(): ${this.state.users}`);
             });
             
         }).catch(function(error){
