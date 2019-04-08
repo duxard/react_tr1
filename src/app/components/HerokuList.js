@@ -6,26 +6,38 @@ export default class HerokuList extends React.Component {
         super(props);
         
         this.state = {
-            todos: []
+            todos: [],
+            inputText: ""
         };
         
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleChange = this.handleChange.bind(this);
     }
     
     componentDidMount() {
-        axios.get('https://asta-web-1.herokuapp.com/api/todo', {timeout: 1500}).then((response) => {
+        axios.get('https://asta-web-1.herokuapp.com/api/todo', {timeout: 1500}).then(response => {
             let resultOfRestRequest = response.data;
             
             this.setState({todos: resultOfRestRequest}, () => {
                 console.log(this.state.todos);
             });
-        }).catch(function(error){
-            console.log(error);
-        });
+        }).catch(error => console.log(error));
     }
     
     handleSubmit(e) {
         e.preventDefault();
+        axios.post('https://asta-web-1.herokuapp.com/api/todo', {item: this.state.inputText}).then(response => {
+            console.log(`HerokuList.handleSubmit(): Sending data to MongoDB: Success`);
+        }).catch(error => console.log(`Failed to save to Mongo: ${error}`));
+        this.setState({
+            inputText: ""
+        });
+    }
+    
+    handleChange(e) {
+        this.setState({
+            inputText: e.target.value
+        });
     }
     
     render() {
@@ -34,7 +46,7 @@ export default class HerokuList extends React.Component {
                 <h4>Heroku list...</h4>
                 <form name="herokuList" onSubmit={this.handleSubmit}>
                     <label htmlFor="newHerokyItem">Add item: </label>
-                    <input type="text" id="newHerokyItem" />
+                    <input type="text" id="newHerokyItem" value={this.state.inputText} onChange={this.handleChange} />
                     <input type="submit"  value="Add new item" />                    
                 </form>
                 <ul id="list">
