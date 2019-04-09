@@ -15,6 +15,7 @@ export default class HerokuList extends React.Component {
         
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
     }
     
     componentDidMount() {
@@ -37,6 +38,7 @@ export default class HerokuList extends React.Component {
         e.preventDefault();
         axios.post('https://asta-web-1.herokuapp.com/api/todo', {item: this.state.inputText}).then(response => {
             console.log(`HerokuList.handleSubmit(): Sending data to MongoDB: Success`);
+            console.log(response);
         }).catch(error => console.log(`Failed to save to Mongo: ${error}`));
         this.setState({
             inputText: ""
@@ -47,6 +49,14 @@ export default class HerokuList extends React.Component {
         this.setState({
             inputText: e.target.value
         });
+    }
+    
+    handleDelete(e){
+        console.log(true);
+        const _id = "5cacd1a6bdfbd500049a1add";
+        axios.delete(`https://asta-web-1.herokuapp.com/api/todo/${_id}`).then(response => {
+            console.log(`HerokuList.handleDelete(): Deleting from MongoDB: Success`);
+        }).catch(error => console.log(`Failed to delete from Mongo: ${error}`));
     }
     
     render() {
@@ -67,6 +77,7 @@ export default class HerokuList extends React.Component {
                         )
                     }
                 </ul>
+                <button onClick={this.handleDelete}>Delete from Mongo</button>
             </div>
         );
     }
