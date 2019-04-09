@@ -1,13 +1,16 @@
 import React from 'react';
 import axios from 'axios';
 
+import '../css/herokuList.css';
+
 export default class HerokuList extends React.Component {
     constructor(props) {
         super(props);
         
         this.state = {
             todos: [],
-            inputText: ""
+            inputText: "",
+            todosLoadingStatus: "Loading list..."
         };
         
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -21,7 +24,13 @@ export default class HerokuList extends React.Component {
             this.setState({todos: resultOfRestRequest}, () => {
                 console.log(this.state.todos);
             });
-        }).catch(error => console.log(error));
+        }).catch(error => {
+            console.log(error);
+            document.getElementById("todosLoadingStatus").setAttribute("class", "red");
+            this.setState({
+                todosLoadingStatus: "Failed to load data from heroku REST"
+            });
+        });
     }
     
     handleSubmit(e) {
@@ -51,7 +60,11 @@ export default class HerokuList extends React.Component {
                 </form>
                 <ul id="list">
                     {
-                        this.state.todos.map((item, index) => <li key={index} data-itemid={item._id}>{item.item}</li>)
+                        this.state.todos.length ? (
+                            this.state.todos.map((item, index) => <li key={index} data-itemid={item._id}>{item.item}</li>)
+                        ) : (
+                            <p id="todosLoadingStatus">{this.state.todosLoadingStatus}</p>
+                        )
                     }
                 </ul>
             </div>
