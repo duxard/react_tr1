@@ -1,3 +1,7 @@
 .red {
     color: red;
 }
+
+#list li{
+    height: 30px;
+}

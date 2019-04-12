@@ -26,7 +26,7 @@ export default class HerokuList extends React.Component {
                 console.log(this.state.todos);
             });
         }).catch(error => {
-            console.log(error);
+            console.error(error);
             document.getElementById("todosLoadingStatus").setAttribute("class", "red");
             this.setState({
                 todosLoadingStatus: "Failed to load data from heroku REST"
@@ -37,9 +37,16 @@ export default class HerokuList extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
         axios.post('https://asta-web-1.herokuapp.com/api/todo', {item: this.state.inputText}).then(response => {
-            console.log(`HerokuList.handleSubmit(): Sending data to MongoDB: Success`);
-            console.log(response);
-        }).catch(error => console.log(`Failed to save to Mongo: ${error}`));
+            if(response.status === 200 && response.statusText === 'OK') {
+                console.log(`HerokuList.handleSubmit(): Sending data to MongoDB: Success`);
+                let newArrayOfTodos = [...this.state.todos, {_id: response.data._id, item: response.data.item}];
+                this.setState({
+                    todos: newArrayOfTodos
+                });
+            } else {
+                throw new Error(`Server response status: ${response.status}`);
+            }           
+        }).catch(error => console.error(`Failed to save to Mongo: ${error}`));
         this.setState({
             inputText: ""
         });
@@ -52,11 +59,20 @@ export default class HerokuList extends React.Component {
     }
     
     handleDelete(e){
-        console.log(true);
-        const _id = "5cacd1a6bdfbd500049a1add";
-        axios.delete(`https://asta-web-1.herokuapp.com/api/todo/${_id}`).then(response => {
-            console.log(`HerokuList.handleDelete(): Deleting from MongoDB: Success`);
-        }).catch(error => console.log(`Failed to delete from Mongo: ${error}`));
+        let removeItemId = e.target.parentElement.getAttribute("data-itemid");
+        axios.delete(`https://asta-web-1.herokuapp.com/api/todo/${removeItemId}`).then(response => {
+            if(response.status === 200 && response.statusText === 'OK') {
+                console.log(`HerokuList.handleDelete(): Deleting from MongoDB: Success`);
+                let index = this.state.todos.findIndex(el => el._id === removeItemId);
+                let newArrayOfTodos = this.state.todos;
+                newArrayOfTodos.splice(index, 1); 
+                this.setState({
+                    todos: newArrayOfTodos
+                });
+            } else {
+                throw new Error(`Server response status: ${response.status}`);
+            }
+        }).catch(error => console.error(`Failed to delete from Mongo: ${error}`));
     }
     
     render() {
@@ -71,13 +87,14 @@ export default class HerokuList extends React.Component {
                 <ul id="list">
                     {
                         this.state.todos.length ? (
-                            this.state.todos.map((item, index) => <li key={index} data-itemid={item._id}>{item.item}</li>)
+                            this.state.todos.map((item, index) => {
+                                return (<li key={index} data-itemid={item._id}>{item.item} <button onClick={this.handleDelete}>Delete</button></li>)
+                            })
                         ) : (
                             <p id="todosLoadingStatus">{this.state.todosLoadingStatus}</p>
                         )
                     }
                 </ul>
-                <button onClick={this.handleDelete}>Delete from Mongo</button>
             </div>
         );
     }
